@@ -1,8 +1,0 @@
-# gitignore this file!
-#rename config.yml
-
-hosts: 
- 'localhost':
-    host: '<hostname:19999/api/3.0/>'
-    secret: 'asdf'
-    token: 'asdf'
