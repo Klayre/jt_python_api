@@ -3,7 +3,6 @@ Python examples of how to use the Looker API
 
 ## What you can find here
 - A copy of the Looker API 3.0 SDK
-- A sample config.yml file for collecting API Tokens/Secrets
 - Sample files of various tasks using the API
 
 ## Relevant Articles
@@ -11,7 +10,16 @@ Python examples of how to use the Looker API
 
 ## Getting Started
 - Clone/Download the Repo.
-- Change the config_sample.yml to config.yml and update with your credentials
+- Create a config.yml file with the following format:
+
+```
+hosts:
+ 'localhost':
+    host: 'https://domain.looker.com:19999/api/3.0/'
+    secret: 'asdfjkl'
+    token: 'qweruiop'
+```
+
 - Run any file in the shell with `python <<filename>> arg1`
 
 ## Scripts
