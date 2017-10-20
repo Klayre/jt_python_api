@@ -7,6 +7,7 @@ import looker
 from pprint import pprint as pp
 import json
 import string
+import datetime
 
 ### ------- HERE ARE PARAMETERS TO CONFIGURE -------
 
@@ -28,7 +29,7 @@ my_token = params['hosts'][host]['token']
 # replace with your custom Looker API Host domain and port, if applicable.
 base_url = my_host
 client_id = my_token
-client_secret = my_secret 
+client_secret = my_secret
 
 # instantiate Auth API
 unauthenticated_client = looker.ApiClient(base_url)
@@ -42,7 +43,7 @@ client = looker.ApiClient(base_url, 'Authorization', 'token ' + token.access_tok
 queryApi = looker.QueryApi(client)
 lookApi = looker.LookApi(client)
 
-
+logs = []
 ### ------- GET THE SOURCE LOOK -------
 
 if os.path.isfile(looks_to_modify):
@@ -57,7 +58,7 @@ if os.path.isfile(looks_to_modify):
 
                 query_object = queryApi.query(look_query_id)
                 query_object.model = new_model_name
-                query_object.client_id = None 
+                query_object.client_id = None
 
                 new_query = queryApi.create_query(body=query_object)
 
@@ -65,7 +66,12 @@ if os.path.isfile(looks_to_modify):
                 data = {}
                 data["query_id"] = new_query.id
                 output = lookApi.update_look(i, data)
-
+                # Log query ids
+                queries = {}
+                queries['look_id'] = int(i)
+                queries['original_query_id'] = look_query_id
+                queries['new_query_id'] = new_query.id
+                logs.append(queries)
                 print "Done"
 
 else:
@@ -73,7 +79,7 @@ else:
         look_query_id = lwq.query_id
 
         print "original query_id: " + str(look_query_id)
-	
+
 	query_object = queryApi.query(look_query_id)
         query_object.model = new_model_name
         query_object.client_id = None
@@ -90,12 +96,21 @@ else:
 	data["query_id"] = new_query.id
 
 	output = lookApi.update_look(looks_to_modify, data)
-	
-#	pp(output.to_str)	
-        
+
+
+#	pp(output.to_str)
+        queries = {}
+        queries['look_id'] = int(looks_to_modify)
+        queries['original_query_id'] = look_query_id
+        queries['new_query_id'] = new_query.id
+        print queries
+        logs.append(queries)
+
         print "Done"
 
 ### ------- DONE -------
 
 print "Finished Operation...Exiting"
-
+f = open('update_model_logs_' + datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")+ '.txt', 'w')
+f.write(json.dumps(logs, indent = 3))
+f.close()
