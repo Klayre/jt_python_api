@@ -27,8 +27,9 @@ hosts:
 |File|Description|How to|Example
 |----|----|----|----|
 |delete_look.py|Illustrates how to delete a look or a list of looks delimited by newlines|Make sure you have the host in your config.yml file and adjust the source look variables at the top of the script.|python delete_look.py 14
-|delete_dashboard.py|Illustrated how to delete a dashboard or a list of dashboards delimited by newlines|Make sure you have the host in your config.yml file and adjust the source look variables at the top of the script.|python delete_dashboard.py list.txt 
+|delete_dashboard.py|Illustrated how to delete a dashboard or a list of dashboards delimited by newlines|Make sure you have the host in your config.yml file and adjust the source look variables at the top of the script.|python delete_dashboard.py list.txt
 |refactor_look_model.py|Allows you to change the model that a Look (or list of Looks) is powered by|Make sure you have the host in your config.yml file and adjust the source look variables at the top of the script.|python refactor_look_model.py 25 new_model
 |get_look.py|Illustrates how to get the data from a look|Make sure you have the host in your config.yml file and adjust the source look variables at the top of the script.|
 |move_look.py|Illustrates how to move a look between servers, or between the same server|Make sure you have both hosts in your config.yml file and adjust the source look, destination space variables at the top of the script.|
-|get_data_dictionary.py|Put together a list of each field, and various attributes in your data model, this outputs a CSV|Make sure your host is configured in the config.yml file|python 
+|get_data_dictionary.py|Put together a list of each field, and various attributes in your data model, this outputs a CSV|Make sure your host is configured in the config.yml file|python
+|rollback_refactor.py| Undo a model refactor by re-associating your Looks with their original query id.| Each run of `refactor_look_model.py` will create a timestamped log file. Reference that log file as an argument when you run the script to rollback changes to a previous state.

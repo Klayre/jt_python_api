@@ -1,0 +1,7 @@
+*.pyc
+looker/*.pyc
+looker/models/*.pyc
+looker/api/*.pyc
+looks_to_modify.txt
+.DS_Store
+config.yml
